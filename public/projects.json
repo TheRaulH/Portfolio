@@ -1,0 +1,75 @@
+{
+  "projects": [
+    {
+      "id": "delivery-la-guardia-app",
+      "title": "Delivery La Guardia: App Móvil de Reparto",
+      "thumbnail": "/images/delivery-la-guardia-thumbnail1x1.png",
+      "description": "Aplicación de delivery multiplataforma construida con Flutter que conecta a usuarios con restaurantes y negocios locales, con un enfoque en la experiencia de usuario rápida y fluida.",
+      "longDescription": "Desarrollada para ofrecer una solución integral de pedidos y reparto a domicilio. Implementación de una arquitectura escalable, gestión de estado con Provider/Riverpod y uso de Firebase para el backend. El principal desafío fue la integración de mapas y el seguimiento de pedidos en tiempo real. El diseño utiliza una paleta de colores centrada en el naranja para una identidad vibrante y atractiva.",
+      "techStack": ["Flutter", "Dart", "Firebase"],
+      "functionalities": [
+        {
+          "title": "Búsqueda y Exploración de Menús",
+          "description": "Permite a los usuarios buscar negocios y platos específicos por nombre, categoría o tipo de comida, con filtros dinámicos en tiempo real.",
+          "media": {
+            "type": "video",
+            "url": "/videos/dlg-busqueda-exploracion.mp4",
+            "width": 810,
+            "height": 1080,
+            "alt": "Demo del flujo de búsqueda y filtrado de comidas y negocios en Delivery La Guardia"
+          }
+        },
+        {
+          "title": "Flujo de Autenticación Completo",
+          "description": "Los usuarios pueden registrarse, iniciar sesión de manera segura y gestionar sus sesiones. Implementación de opciones de inicio de sesión social.",
+          "media": {
+            "type": "video",
+            "url": "/videos/dlg-auth-flow.mp4",
+            "width": 810,
+            "height": 1080,
+            "alt": "Demostración de registro e inicio de sesión en la aplicación"
+          }
+        },
+        {
+          "title": "Carrito de Compras y Checkout",
+          "description": "Gestión del carrito de compras: agregar/eliminar ítems, ajustar cantidades. Flujo de finalización de pedido con selección de dirección y métodos de pago.",
+          "media": {
+            "type": "video",
+            "url": "/videos/dlg-carrito-checkout.mp4",
+            "width": 810,
+            "height": 1080,
+            "alt": "Video del proceso de añadir al carrito y finalizar el pedido"
+          }
+        },
+        {
+          "title": "Seguimiento de Pedido en Tiempo Real",
+          "description": "Muestra el estado actualizado del pedido y la ubicación del repartidor en el mapa (simulado o real).",
+          "media": {
+            "type": "gif",
+            "url": "/gifs/dlg-order-tracking.gif",
+            "width": 640,
+            "height": 640,
+            "alt": "GIF de la animación de seguimiento de pedido en mapa"
+          }
+        },
+        {
+          "title": "Interfaz de Usuario (UI) Principal",
+          "description": "Screenshot de la pantalla principal destacando el diseño limpio, widgets de Flutter personalizados y la paleta de color naranja.",
+          "media": {
+            "type": "image",
+            "url": "/images/dlg-home-screen.png",
+            "width": 1024,
+            "height": 1536,
+            "alt": "Captura de pantalla de la interfaz de usuario principal de Delivery La Guardia"
+          }
+        }
+      ],
+      "links": {
+        "github": "https://github.com/TheRaulH/AppDelivery"
+      },
+      "tags": ["flutter", "delivery", "movil", "fullstack", "dart"],
+      "status": "completed",
+      "date": "2024-10-25"
+    }
+  ]
+}
