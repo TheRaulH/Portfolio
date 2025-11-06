@@ -14,6 +14,7 @@ import {
   Figma,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ReactMarkdown from "react-markdown";
 
 // Importar GSAP (descomenta en tu proyecto real)
 // import gsap from 'gsap';
@@ -300,7 +301,7 @@ export default function ProjectDetailPage() {
                 Sobre el Proyecto
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                {project.longDescription}
+                <ReactMarkdown>{project.longDescription}</ReactMarkdown>
               </p>
             </div>
           </div>
@@ -331,8 +332,8 @@ export default function ProjectDetailPage() {
                     Funcionalidad {idx + 1}
                   </div>
                   <h3 className="text-3xl font-bold mb-4">{feature.title}</h3>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    {feature.description}
+                  <p className="text-lg text-muted-foreground">
+                    <ReactMarkdown>{feature.description}</ReactMarkdown>
                   </p>
                 </div>
 
@@ -354,7 +355,7 @@ export default function ProjectDetailPage() {
                           loop
                           muted
                           playsInline
-                          className="w-full h-auto p-6"
+                          className="w-full h-auto"
                         />
                       ) : (
                         <img
