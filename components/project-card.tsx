@@ -21,13 +21,13 @@ export function ProjectCard({ project }: Props) {
   return (
     <Card className="hover:scale-105 transition-transform">
       <CardHeader>
-        <div className="relative w-full h-56 rounded-lg overflow-hidden bg-muted">
+        <div className="relative w-full h-60 rounded-lg overflow-hidden bg-muted">
           <img
             src={project.thumbnail || "/images/default-project-thumbnail.webp"}
             alt={project.title}
-            width={1280}
-            height={1280}
-            className="object-cover justify-center"
+            width={1200}
+            height={675}
+            className=" object-cover w-full h-full"
             onError={(e) => {
               e.currentTarget.src = "/images/default-project-thumbnail.webp";
             }}
