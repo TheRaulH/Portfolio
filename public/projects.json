@@ -6,7 +6,7 @@
       "thumbnail": "/images/delivery-la-guardia-thumbnail1x1.png",
       "description": "Aplicación de delivery multiplataforma construida con Flutter que conecta a usuarios con restaurantes y negocios locales, con un enfoque en la experiencia de usuario rápida y fluida.",
       "longDescription": "Desarrollada para ofrecer una solución integral de pedidos y reparto a domicilio. Implementación de una arquitectura escalable, gestión de estado con Provider/Riverpod y uso de Firebase para el backend. El principal desafío fue la integración de mapas y el seguimiento de pedidos en tiempo real. El diseño utiliza una paleta de colores centrada en el naranja para una identidad vibrante y atractiva.",
-      "techStack": ["Flutter", "Dart", "Firebase"],
+      "techStack": ["Flutter", "Dart", "Firebase", "NoSql"],
       "functionalities": [
         {
           "title": "Búsqueda y Exploración de Menús",
@@ -70,6 +70,142 @@
       "tags": ["flutter", "delivery", "movil", "fullstack", "dart"],
       "status": "completed",
       "date": "2024-10-25"
+    },
+    {
+      "id": "chatbot-rag-mobile",
+      "title": "Chatbot RAG con Flutter y Supabase Vector DB",
+      "thumbnail": "/images/rag-mobile-thumbnail1x1.png",
+      "description": "Sistema de Chatbot móvil basado en Retrieval-Augmented Generation (RAG) para proporcionar respuestas contextuales. El asistente se llama CoddyKIA.",
+      "longDescription": "Este proyecto se enfoca en la arquitectura de datos y la integración de modelos de IA de última generación (Gemini). Se utiliza Supabase (Postgres con la extensión pgvector) como el backend vectorial para almacenar embeddings generados por OpenAI. La lógica RAG móvil funciona así: la consulta del usuario se envía primero a Supabase para recuperar los documentos más relevantes, y luego se construye un 'prompt' enriquecido que se envía al modelo de Gemini para generar una respuesta precisa y contextual. El historial de chat se gestiona en una base de datos local (ej. Hive o sqflite) para persistencia, ofreciendo al usuario final la experiencia de interactuar con CoddyKIA.",
+      "techStack": ["Flutter", "Dart", "Supabase", "Gemini", "OpenAI", "Sql"],
+      "functionalities": [
+        {
+          "title": "Diseño de Marca e Interfaz de CoddyKIA",
+          "description": "Implementación de una interfaz de chat moderna y personalizada con iconos y una paleta de colores distintiva para el asistente CoddyKIA, diferenciándolo visualmente de las respuestas del usuario.",
+          "media": {
+            "type": "image",
+            "url": "/images/chatbot-coddykia-ui.png",
+            "width": 1440,
+            "height": 3040,
+            "alt": "Captura de pantalla del diseño de la interfaz de chat con el branding de CoddyKIA."
+          }
+        },
+        {
+          "title": "Arquitectura RAG (Retrieval-Augmented Generation)",
+          "description": "Demostración del flujo completo: consulta del usuario → generación del embedding → búsqueda de similitud vectorial en Supabase → generación de la respuesta final con Gemini.",
+          "media": {
+            "type": "image",
+            "url": "/images/rag-architecture-diagram.png",
+            "width": 1024,
+            "height": 1024,
+            "alt": "Diagrama de flujo del sistema RAG (Consulta, Supabase Vector DB, Gemini)"
+          }
+        },
+        {
+          "title": "Manejo de Bases de Datos Vectoriales",
+          "description": "Implementación de consultas de similitud de coseno en Supabase (pgvector) para buscar eficientemente los K vectores más cercanos a la consulta del usuario.",
+          "media": {
+            "type": "image",
+            "url": "/images/supabase-vector-query.png",
+            "width": 523,
+            "height": 345,
+            "alt": "Demo de la rapidez de la consulta vectorial y la recuperación de contexto."
+          }
+        },
+        {
+          "title": "Persistencia de Conversaciones Locales",
+          "description": "Almacenamiento y recuperación de todo el historial de chat del usuario en una base de datos local y optimizada de Flutter para una experiencia fluida sin conexión (parcial).",
+          "media": {
+            "type": "image",
+            "url": "/images/chatbot-local-history.png",
+            "width": 1440,
+            "height": 3040,
+            "alt": "Captura de pantalla de la interfaz de historial de conversaciones."
+          }
+        }
+      ],
+      "links": {
+        "github": "https://github.com/TheRaulH/ChatBotApp"
+      },
+      "tags": [
+        "flutter",
+        "dart",
+        "ia",
+        "rag",
+        "supabase",
+        "gemini",
+        "ingeniería-de-sistemas"
+      ],
+      "status": "completed",
+      "date": "2025-01-15"
+    },
+    {
+      "id": "chrome-extension-task-pomodoro",
+      "title": "Productivity Hub: Extensión de Chrome (Tasks & Pomodoro)",
+      "thumbnail": "/images/chrome-extension-thumbnail1x1.png",
+      "description": "Extensión de navegador para Google Chrome que combina un gestor de tareas priorizadas (Corto, Mediano, Largo plazo) con un temporizador Pomodoro integrado para mejorar la concentración y la gestión del tiempo.",
+      "longDescription": "Desarrollada como una herramienta esencial para la productividad personal, esta extensión explora el uso de **Service Workers** para mantener la lógica del temporizador Pomodoro en segundo plano, asegurando su funcionamiento incluso cuando la ventana emergente de la extensión está cerrada. La interfaz de usuario fue construida con **React, TypeScript y TailwindCSS**, utilizando componentes de **Shadcn UI** para un diseño moderno y accesible. El principal desafío fue la comunicación eficiente entre el *popup*, el *background script* (Service Worker) y el almacenamiento local para sincronizar el estado del temporizador y las tareas.",
+      "techStack": ["React", "TypeScript", "Vite", "TailwindCSS", "Shadcn UI"],
+      "functionalities": [
+        {
+          "title": "Gestión de Tareas Multi-Plazo",
+          "description": "Permite a los usuarios organizar sus tareas y metas en tres categorías: corto, mediano y largo plazo, facilitando la visualización y priorización.",
+          "media": {
+            "type": "image",
+            "url": "/images/extension-tasks-management.png",
+            "width": 355,
+            "height": 602,
+            "alt": "Captura de pantalla de la interfaz de gestión de tareas por categorías."
+          }
+        },
+        {
+          "title": "Temporizador Pomodoro con Background Worker",
+          "description": "Implementación de un temporizador Pomodoro que opera de manera independiente utilizando un **Service Worker**. Esto permite que el contador continúe ejecutándose y enviando notificaciones sin que la ventana de la extensión esté abierta.",
+          "media": {
+            "type": "video",
+            "url": "/videos/extension-pomodoro-demo.mp4",
+            "width": 1080,
+            "height": 1820,
+            "alt": "Demostración del temporizador Pomodoro en funcionamiento, incluyendo notificaciones."
+          }
+        },
+        {
+          "title": "Persistencia de Datos Local (Chrome Storage)",
+          "description": "Almacenamiento de tareas y configuraciones del Pomodoro utilizando la API de `chrome.storage.local` para asegurar que los datos persistan entre sesiones del navegador.",
+          "media": {
+            "type": "image",
+            "url": "/images/extension-chrome-storage.png",
+            "width": 358,
+            "height": 599,
+            "alt": "Diagrama de la arquitectura de persistencia de datos local."
+          }
+        },
+        {
+          "title": "Interfaz de Usuario con Shadcn UI",
+          "description": "Diseño moderno y responsivo con componentes de Shadcn UI y estilos TailwindCSS, ofreciendo una experiencia de usuario intuitiva y estéticamente agradable.",
+          "media": {
+            "type": "video",
+            "url": "/videos/extension-ui-interaction.mp4",
+            "width": 1080,
+            "height": 1820,
+            "alt": "Video demostrando interacciones clave de la interfaz de usuario."
+          }
+        }
+      ],
+      "links": {
+        "github": "https://github.com/TheRaulH/Productivity-Extension"
+      },
+      "tags": [
+        "react",
+        "typescript",
+        "chrome-extension",
+        "productivity",
+        "service-worker",
+        "tailwind",
+        "shadcn-ui"
+      ],
+      "status": "completed",
+      "date": "2024-09-01"
     }
   ]
 }
