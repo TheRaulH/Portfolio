@@ -12,14 +12,10 @@ import {
   Tag,
   ArrowLeft,
   Figma,
+  Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ReactMarkdown from "react-markdown";
-
-// Importar GSAP (descomenta en tu proyecto real)
-// import gsap from 'gsap';
-// import { ScrollTrigger } from 'gsap/ScrollTrigger';
-// gsap.registerPlugin(ScrollTrigger);
 
 export default function ProjectDetailPage() {
   const router = useRouter();
@@ -28,6 +24,9 @@ export default function ProjectDetailPage() {
   const project = projects.find((p) => p.id === id);
 
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [videoLoadingStates, setVideoLoadingStates] = useState<{
+    [key: number]: boolean;
+  }>({});
   const heroRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
@@ -37,6 +36,16 @@ export default function ProjectDetailPage() {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   if (!project) return notFound();
+
+  // Determinar si una imagen/video es vertical basándose en sus dimensiones
+  const isVerticalMedia = (media: {
+    width?: number;
+    height?: number;
+  }): boolean => {
+    if (!media.width || !media.height) return false;
+    const aspectRatio = media.width / media.height;
+    return aspectRatio < 0.8; // Si el aspect ratio es menor a 0.8, es vertical
+  };
 
   useEffect(() => {
     // Scroll progress bar
@@ -81,69 +90,13 @@ export default function ProjectDetailPage() {
     };
   }, []);
 
-  useEffect(() => {
-    // Animaciones GSAP - Descomenta en tu proyecto real
-    /*
-    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+  const handleVideoLoadStart = (idx: number) => {
+    setVideoLoadingStates((prev) => ({ ...prev, [idx]: true }));
+  };
 
-    tl.from(titleRef.current, {
-      y: 100,
-      opacity: 0,
-      duration: 1,
-    })
-      .from(
-        descRef.current,
-        {
-          y: 50,
-          opacity: 0,
-          duration: 0.8,
-        },
-        "-=0.5"
-      )
-      .from(
-        metaRef.current?.children || [],
-        {
-          y: 30,
-          opacity: 0,
-          duration: 0.6,
-          stagger: 0.1,
-        },
-        "-=0.4"
-      )
-      .from(
-        techStackRef.current?.children || [],
-        {
-          scale: 0,
-          opacity: 0,
-          duration: 0.5,
-          stagger: 0.05,
-        },
-        "-=0.3"
-      );
-
-    // Animaciones de scroll para funcionalidades
-    functionalitiesRef.current.forEach((el) => {
-      if (el) {
-        gsap.fromTo(
-          el,
-          { y: 100, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 80%",
-              end: "top 20%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-      }
-    });
-    */
-  }, []);
+  const handleVideoCanPlay = (idx: number) => {
+    setVideoLoadingStates((prev) => ({ ...prev, [idx]: false }));
+  };
 
   const statusConfig = {
     completed: {
@@ -300,9 +253,9 @@ export default function ProjectDetailPage() {
               <h2 className="text-3xl font-bold mb-6 text-primary">
                 Sobre el Proyecto
               </h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <div className="text-lg text-muted-foreground leading-relaxed prose prose-lg max-w-none dark:prose-invert">
                 <ReactMarkdown>{project.longDescription}</ReactMarkdown>
-              </p>
+              </div>
             </div>
           </div>
         </div>
@@ -316,60 +269,87 @@ export default function ProjectDetailPage() {
           </h2>
 
           <div className="space-y-24">
-            {project.functionalities.map((feature, idx) => (
-              <div
-                key={idx}
-                ref={(el) => {
-                  functionalitiesRef.current[idx] = el;
-                }}
-                className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
-                  idx % 2 === 1 ? "lg:grid-flow-dense" : ""
-                }`}
-              >
-                {/* Text content */}
-                <div className={idx % 2 === 1 ? "lg:col-start-2" : ""}>
-                  <div className="inline-block px-4 py-1 bg-primary/10 border border-primary/20 rounded-full text-primary text-sm font-semibold mb-4">
-                    Funcionalidad {idx + 1}
-                  </div>
-                  <h3 className="text-3xl font-bold mb-4">{feature.title}</h3>
-                  <p className="text-lg text-muted-foreground">
-                    <ReactMarkdown>{feature.description}</ReactMarkdown>
-                  </p>
-                </div>
+            {project.functionalities.map((feature, idx) => {
+              const isVertical = isVerticalMedia(feature.media);
+              const isEven = idx % 2 === 0;
 
-                {/* Media */}
+              return (
                 <div
-                  className={
-                    idx % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""
-                  }
+                  key={idx}
+                  ref={(el) => {
+                    functionalitiesRef.current[idx] = el;
+                  }}
+                  className={`grid grid-cols-1 ${
+                    isVertical
+                      ? "lg:grid-cols-[1fr_400px] gap-8"
+                      : "lg:grid-cols-2 gap-12"
+                  } items-center ${!isEven ? "lg:grid-flow-dense" : ""}`}
                 >
-                  <div className="relative group">
-                    <div className="absolute -inset-1 bg-primary/20 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-                    <div className="relative bg-card rounded-xl overflow-hidden border border-border shadow-xl">
-                      {feature.media.type === "video" ? (
-                        <video
-                          ref={(el) => {
-                            videoRefs.current[idx] = el;
-                          }}
-                          src={feature.media.url}
-                          loop
-                          muted
-                          playsInline
-                          className="w-full h-auto"
-                        />
-                      ) : (
-                        <img
-                          src={feature.media.url}
-                          alt={feature.media.alt}
-                          className="w-full h-auto"
-                          loading="lazy"
-                        />
-                      )}
+                  {/* Text content */}
+                  <div className={!isEven ? "lg:col-start-2" : ""}>
+                    <div className="inline-block px-4 py-1 bg-primary/10 border border-primary/20 rounded-full text-primary text-sm font-semibold mb-4">
+                      Funcionalidad {idx + 1}
+                    </div>
+                    <h3 className="text-3xl font-bold mb-4">{feature.title}</h3>
+                    <div className="text-lg text-muted-foreground prose prose-lg max-w-none dark:prose-invert">
+                      <ReactMarkdown>{feature.description}</ReactMarkdown>
+                    </div>
+                  </div>
+
+                  {/* Media */}
+                  <div
+                    className={`${
+                      !isEven ? "lg:col-start-1 lg:row-start-1" : ""
+                    } ${isVertical ? "flex justify-center" : ""}`}
+                  >
+                    <div className="relative group">
+                      <div className="absolute -inset-1 bg-primary/20 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+                      <div
+                        className={`relative bg-card rounded-xl overflow-hidden border border-border shadow-xl ${
+                          isVertical ? "max-w-sm mx-auto" : "w-full"
+                        }`}
+                      >
+                        {feature.media.type === "video" ? (
+                          <div className="relative">
+                            {/* Loading skeleton */}
+                            {videoLoadingStates[idx] && (
+                              <div className="absolute inset-0 flex items-center justify-center bg-muted/50 backdrop-blur-sm z-10">
+                                <div className="flex flex-col items-center gap-3">
+                                  <Loader2 className="w-8 h-8 animate-spin text-primary" />
+                                  <p className="text-sm text-muted-foreground">
+                                    Cargando video...
+                                  </p>
+                                </div>
+                              </div>
+                            )}
+                            <video
+                              ref={(el) => {
+                                videoRefs.current[idx] = el;
+                              }}
+                              src={feature.media.url}
+                              loop
+                              muted
+                              playsInline
+                              preload="metadata"
+                              className="w-full h-auto"
+                              onLoadStart={() => handleVideoLoadStart(idx)}
+                              onCanPlay={() => handleVideoCanPlay(idx)}
+                            />
+                          </div>
+                        ) : (
+                          <img
+                            src={feature.media.url}
+                            alt={feature.media.alt}
+                            className="w-full h-auto"
+                            loading="lazy"
+                          />
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
