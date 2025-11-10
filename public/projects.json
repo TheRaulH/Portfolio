@@ -221,7 +221,8 @@
         "JavaScript",
         "TailwindCSS",
         "MetaMask",
-        "Ethers.js / Web3.js"
+        "Ethers.js",
+        "Web3.js"
       ],
       "functionalities": [
         {
@@ -273,7 +274,7 @@
         }
       ],
       "links": {
-        "github": "https://github.com/TheRaulH/BovineSmartInventory"
+        "github": "https://github.com/MeryJ39/Chainventory"
       },
       "tags": [
         "react",
