@@ -206,6 +206,86 @@
       ],
       "status": "completed",
       "date": "2024-09-01"
+    },
+    {
+      "id": "bovine-inventory-blockchain",
+      "title": "Trazabilidad Bovina con Contratos Inteligentes",
+      "thumbnail": "/images/bovine-blockchain-thumbnail1x1.png",
+      "description": "Sistema de gestión de inventario para estancias bovinas con integración de tecnología Blockchain (Ethereum) para garantizar la inmutabilidad y trazabilidad de los datos.",
+      "longDescription": "Este proyecto representa una solución avanzada de ERP (Enterprise Resource Planning) para el sector ganadero, donde la información crítica (inventario, ventas, vacunaciones) se almacena en Contratos Inteligentes desarrollados en Solidity. El sistema utiliza **Ganache** para simular la red Ethereum y **Truffle** para la compilación y despliegue. El frontend (React, Tailwind) interactúa directamente con la cadena de bloques a través de **MetaMask** (como billetera) y librerías como **ethers.js/web3.js** para la gestión de transacciones. El principal desafío fue abstraer la complejidad de la Blockchain para el usuario final y asegurar la eficiencia del gas para las operaciones del sistema.",
+      "techStack": [
+        "Solidity",
+        "Truffle",
+        "Ganache",
+        "React",
+        "JavaScript",
+        "TailwindCSS",
+        "MetaMask",
+        "Ethers.js / Web3.js"
+      ],
+      "functionalities": [
+        {
+          "title": "Manejo de Inventario Inmutable (Smart Contracts)",
+          "description": "Los módulos de Inventario y Animales se gestionan mediante contratos inteligentes, asegurando que cada registro de animales, productos y movimientos sea inmutable y verificable en la cadena de bloques.",
+          "media": {
+            "type": "image",
+            "url": "/images/bovine-inventory-ui.png",
+            "alt": "Captura de pantalla de la interfaz del módulo de Inventario Bovino."
+          }
+        },
+        {
+          "title": "Trazabilidad de Vacunaciones (On-Chain)",
+          "description": "El registro de vacunas se realiza a través de una transacción, quedando permanentemente almacenada con fecha y datos del responsable, mejorando la transparencia y la certificación de salud del ganado.",
+          "media": {
+            "type": "image",
+            "url": "/images/bovine-vaccination-chain.png",
+            "alt": "Diagrama de flujo de la función de registro de vacunación en Blockchain."
+          }
+        },
+        {
+          "title": "Integración Web3 (MetaMask y Ethers.js)",
+          "description": "Muestra la integración del frontend con la red de prueba (Ganache), permitiendo al usuario firmar transacciones con MetaMask para ejecutar funciones del contrato (ej. 'añadir animal' o 'registrar venta').",
+          "media": {
+            "type": "image",
+            "url": "/images/bovine-metamask-tx.png",
+            "width": 1280,
+            "height": 720,
+            "alt": "Codigo demostrativo de la conexión a MetaMask y la ejecución de una transacción."
+          }
+        },
+        {
+          "title": "Módulos de Gestión Administrativa",
+          "description": "Implementación de los módulos tradicionales (Dashboard, Ventas, Usuarios) sobre una base descentralizada, demostrando un sistema de gestión completo y moderno.",
+          "media": {
+            "type": "image",
+            "url": "/images/bovine-admin-modules.png",
+            "alt": "Captura de pantalla del menú lateral con los módulos de gestión (Inventario, Ventas, Usuarios)."
+          }
+        },
+        {
+          "title": "Módulos de Dashboard",
+          "description": "Desarrollo de un panel de control interactivo para la visualización de datos en tiempo real, permitiendo a los usuarios gestionar y monitorear el inventario de manera eficiente.",
+          "media": {
+            "type": "image",
+            "url": "/images/bovine-dashboard-modules.png",
+            "alt": "Captura de pantalla del panel de control con gráficos y estadísticas."
+          }
+        }
+      ],
+      "links": {
+        "github": "https://github.com/TheRaulH/BovineSmartInventory"
+      },
+      "tags": [
+        "react",
+        "javascript",
+        "blockchain",
+        "solidity",
+        "web3",
+        "inventario",
+        "ganache"
+      ],
+      "status": "completed",
+      "date": "2025-03-01"
     }
   ]
 }
